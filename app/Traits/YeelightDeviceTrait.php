@@ -2,7 +2,9 @@
 
 namespace App\Traits;
 
-use Yeelight\YeelightClient;
+use Socket\Raw\Factory;
+use App\Factories\BulbFactory;
+use Yeelight\YeelightRawClient;
 
 trait YeelightDeviceTrait
 {
@@ -18,13 +20,19 @@ trait YeelightDeviceTrait
     public function start()
     {
         $this->connectClient();
-        dd($this->client);
         $this->bulbSearch();
     }
 
     private function connectClient()
     {
-        $this->client = new YeelightClient();
+        $socket = new Factory();
+        dd($socket->createUdp4()->selectRead(1));
+        $bulbFactory = new BulbFactory($socket);
+        $this->client = new YeelightRawClient(
+            1,
+            $socket->createUdp4(),
+            $bulbFactory
+        );
     }
 
     private function bulbSearch()
