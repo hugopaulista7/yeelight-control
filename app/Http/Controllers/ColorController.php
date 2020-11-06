@@ -10,10 +10,6 @@ class ColorController extends Controller
 
     use YeelightDeviceTrait;
 
-    public function __construct()
-    {
-        $this->start();
-    }
 
     public function list()
     {
@@ -23,6 +19,7 @@ class ColorController extends Controller
 
     public function change(string $color)
     {
+        $this->start();
         if ($color === 'random') {
             $this->changeRandomColor();
         } else {
