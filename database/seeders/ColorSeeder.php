@@ -11,15 +11,15 @@ class ColorSeeder extends Seeder
     protected $data = [
         [
             'name' => 'red',
-            'rgb'  => '16711680'
+            'hex'  => 'FF0000'
         ],
         [
             'name' => 'green',
-            'rgb'  => '65280'
+            'hex'  => '00FF00'
         ],
         [
             'name' => 'blue',
-            'rgb'  => '255'
+            'hex'  => '0000FF'
         ],
 
     ];
