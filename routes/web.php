@@ -14,5 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return [
+        'name'        => 'Yeelight API',
+        'author'      => 'Hugo Paulista',
+        'created_on ' => '11-06-2020'
+    ];
 });
