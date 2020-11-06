@@ -16,7 +16,7 @@ trait YeelightDeviceTrait
 
     public function start()
     {
-        $this->lamp = new Yeelight('192.168.1.3', '55443');
+        $this->lamp = new Yeelight(env('YEELIGHT_IP'), env('YEELIGHT_PORT'));
     }
 
     public function changeColor($hex)
