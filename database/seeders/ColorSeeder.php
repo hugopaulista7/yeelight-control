@@ -4,25 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\Color;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ColorSeeder extends Seeder
 {
-
-    protected $data = [
-        [
-            'name' => 'red',
-            'hex'  => 'FF0000'
-        ],
-        [
-            'name' => 'green',
-            'hex'  => '00FF00'
-        ],
-        [
-            'name' => 'blue',
-            'hex'  => '0000FF'
-        ],
-
-    ];
     /**
      * Run the database seeds.
      *
@@ -30,9 +16,29 @@ class ColorSeeder extends Seeder
      */
     public function run()
     {
-        foreach($this->data as $data) {
-            $color = new Color($data);
+        $colors = $this->getData();
+
+        foreach($colors as $currentColor) {
+            $color = new Color($currentColor);
             $color->save();
         }
+    }
+
+    private function getData()
+    {
+        $content = File::get(public_path('colors.json'));
+        $colors = collect(json_decode($content));
+
+        $keys = $colors->keys();
+
+        $finalColors = [];
+
+        foreach ($keys as $key) {
+            $finalColors[] = [
+                'name' => $key,
+                'hex'  => Str::upper(str_replace('#', '', $colors[$key]->hex))
+            ];
+        }
+        return $finalColors;
     }
 }

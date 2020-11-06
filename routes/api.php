@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('colors/change/{color}', 'App\Http\Controllers\ColorController@change');
 
+Route::get('create-colors', 'App\Http\Controllers\ColorController@createColors');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

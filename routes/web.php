@@ -13,10 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return [
-        'name'        => 'Yeelight API',
-        'author'      => 'Hugo Paulista',
-        'created_on ' => '11-06-2020'
-    ];
-});
+Route::get('/', 'App\Http\Controllers\ColorController@list');
