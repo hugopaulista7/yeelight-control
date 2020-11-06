@@ -14,7 +14,8 @@ class ColorController extends Controller
 
     public function list()
     {
-        $colors = DB::table('colors')->paginate(30, ['name', 'hex']);
+        $query = "SELECT name, hex FROM colors";
+        $colors = DB::select($query);
         return view('welcome', ['colors' => $colors]);
     }
 

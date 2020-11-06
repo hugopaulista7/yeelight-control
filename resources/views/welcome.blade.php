@@ -76,8 +76,5 @@
 
             @endforeach
         </div>
-        <div class="paginator">
-            <?php echo $colors->render(); ?>
-        </div>
     </body>
 </html>
