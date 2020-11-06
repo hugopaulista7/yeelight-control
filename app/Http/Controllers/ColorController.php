@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Color;
 use App\Traits\YeelightDeviceTrait;
+use Illuminate\Support\Facades\DB;
 
 class ColorController extends Controller
 {
@@ -29,15 +30,18 @@ class ColorController extends Controller
     }
 
 
-    private function getColors()
+    private function getColorsRaw($column)
     {
-        return Color::all(['name', 'hex']);
+        $query = "SELECT $column FROM colors";
+        return array_map(function ($item) use ($column) {
+            return $item->$column;
+        }, DB::select($query));
+
     }
 
     private function changeRandomColor()
     {
-        $colors = $this->getColors()->pluck('hex');
-
+        $colors = $this->getColorsRaw('hex');
         $index = random_int(0, count($colors) - 1);
 
         $hex = hexdec($colors[$index]);
@@ -47,13 +51,13 @@ class ColorController extends Controller
 
     private function changeSingleColor($color)
     {
-        $colors = $this->getColors();
+        $colors = $this->getColorsRaw('name');
 
-        if (!in_array($color, $colors->pluck('name')->toArray())) {
+        if (!in_array($color, $colors)) {
             return 'Color not found';
         }
 
-        $hex = $colors->where('name', $color)->first()->hex;
+        $hex = Color::where('name', $color)->first()->hex;
 
         $this->changeColor(hexdec($hex));
     }
