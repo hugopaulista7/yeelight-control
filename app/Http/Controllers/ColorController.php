@@ -14,7 +14,7 @@ class ColorController extends Controller
 
     public function list()
     {
-        $colors = Color::all(['name', 'hex']);
+        $colors = DB::table('colors')->paginate(30, ['name', 'hex']);
         return view('welcome', ['colors' => $colors]);
     }
 

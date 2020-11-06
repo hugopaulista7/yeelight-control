@@ -46,6 +46,20 @@
                 border: 1px solid black;
             }
 
+            .paginator {
+                font-size: 50px !important;
+                font-weight: bold;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 50px;
+            }
+
+            .paginator a {
+                margin: 0 20px;
+
+            }
         </style>
     </head>
     <body class="antialiased">
@@ -61,6 +75,9 @@
                 </p>
 
             @endforeach
+        </div>
+        <div class="paginator">
+            <?php echo $colors->render(); ?>
         </div>
     </body>
 </html>
