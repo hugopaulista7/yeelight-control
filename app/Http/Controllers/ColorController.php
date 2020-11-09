@@ -21,7 +21,14 @@ class ColorController extends Controller
 
     public function change(string $color)
     {
+        $colors = $this->getColorsRaw('name');
+
+        if (!in_array($color, $colors) && $color !== 'random') {
+            return 'Color not found';
+        }
+
         $this->start();
+
         if ($color === 'random') {
             $this->changeRandomColor();
         } else {
@@ -52,12 +59,6 @@ class ColorController extends Controller
 
     private function changeSingleColor($color)
     {
-        $colors = $this->getColorsRaw('name');
-
-        if (!in_array($color, $colors)) {
-            return 'Color not found';
-        }
-
         $hex = Color::where('name', $color)->first()->hex;
 
         $this->changeColor(hexdec($hex));
